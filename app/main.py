@@ -1,4 +1,6 @@
 from fastapi import Depends, FastAPI
+import dotenv
+import os
 import uvicorn
 
 #uvicorn app.main:app --reload
@@ -6,11 +8,7 @@ from .dependencies import get_query_token, get_token_header
 from .internal import admin
 from .routers import items
 
-import dotenv
-import os
-dotenv.load_dotenv()
-print(os.getenv('DATABASE_URL'))
-print('okkkkk')
+
 app = FastAPI(dependencies=[Depends(get_query_token)])
 
 

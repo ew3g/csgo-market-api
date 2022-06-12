@@ -2,8 +2,9 @@ import dotenv
 import motor.motor_asyncio
 import os
 from bson.objectid import ObjectId
+
 dotenv.load_dotenv()
-print('jdsdjaskldjsaldsakdljaskldjaskldjas')
+
 url = os.getenv('DATABASE_URL')
 client = motor.motor_asyncio.AsyncIOMotorClient(url)
 
@@ -20,9 +21,8 @@ def item_helper(item) -> dict:
         'subtype': item['subtype'],
         'game_type': item['game_type'],
     }
-    
+
 async def retrieve_items():
-    print(url)
     items = []
     async for item in item_collection.find():
         items.append(item_helper(item))
@@ -34,13 +34,10 @@ async def add_item(item_data: dict) -> dict:
     return item_helper(new_item)
 
 async def retrieve_item(id: str) -> dict:
-    print('okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
-    print(url)
-    print(id)
     item = await item_collection.find_one({'_id': ObjectId(id)})
     if item:
         return item_helper(item)
-    
+
 async def update_item(id: str, data: dict):
     if len(data) < 1:
         return False
@@ -50,7 +47,7 @@ async def update_item(id: str, data: dict):
         if updated_item:
             return True
         return False
-    
+
 async def delete_item(id: str):
     item = await item_collection.find_one({'_id': ObjectId(id)})
     if item:
