@@ -1,9 +1,16 @@
 from fastapi import Depends, FastAPI
+import uvicorn
 
+#uvicorn app.main:app --reload
 from .dependencies import get_query_token, get_token_header
 from .internal import admin
 from .routers import items
 
+import dotenv
+import os
+dotenv.load_dotenv()
+print(os.getenv('DATABASE_URL'))
+print('okkkkk')
 app = FastAPI(dependencies=[Depends(get_query_token)])
 
 
@@ -16,4 +23,12 @@ app.include_router(admin.router,
 
 @app.get('/')
 async def root():
+    """Application Root Method, to be implemented
+
+    Returns:
+        _type_: str
+    """
     return {'message': 'Hello Bigger Aplications'}
+
+# if __name__ == '__main__':
+#     uvicorn.run('app.main:app', host="0.0.0.0", reload=True)
