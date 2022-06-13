@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Body, Depends
 from fastapi.encoders import jsonable_encoder
 
-from app.models.item import ErrorResponseModel, ItemSchema, ResponseModel
+from app.models.item import get_error_response_model, ItemSchema, get_response_model
 from ..dependencies import get_token_header
 from ..database.database import(
     add_item,
@@ -22,32 +22,32 @@ router = APIRouter(
 async def add_item_data(item: ItemSchema = Body(...)):
     item = jsonable_encoder(item)
     new_item = await add_item(item)
-    return ResponseModel(new_item, 'Item addeed successfully')
+    return get_response_model(new_item, 'Item addeed successfully')
 
 @router.get('/')
 async def get_items_data():
     items = await retrieve_items()
     if items:
-        return ResponseModel(items, 'Items data retrieved succesfully')
-    return ResponseModel(items, 'Empty list returned')
+        return get_response_model(items, 'Items data retrieved succesfully')
+    return get_response_model(items, 'Empty list returned')
 
 @router.get('/{item_id}')
 async def get_item_data(item_id: str):
     item = await retrieve_item(item_id)
     if item:
-        return ResponseModel(item, 'Item data retrieved succesfully')
-    return ErrorResponseModel('An error ocurred.', 404, 'Item doesn\'t exist' )
+        return get_response_model(item, 'Item data retrieved succesfully')
+    return get_error_response_model('An error ocurred.', 404, 'Item doesn\'t exist')
 
 @router.put('/{item_id}')
 async def update_item_data(item: dict):
     status_update = update_item(item['id'], item)
     if status_update:
-        return ResponseModel(item, 'Item updated successfully')
-    return ErrorResponseModel('An error ocurred.', 500, 'Failed to update item')
+        return get_response_model(item, 'Item updated successfully')
+    return get_error_response_model('An error ocurred.', 500, 'Failed to update item')
 
 @router.delete('/{item_id}')
 async def delete_item_data(item_id: str):
     status_delete = delete_item(item_id)
     if status_delete:
-        return ResponseModel(item_id, 'Item deleted succesfully')
-    return ErrorResponseModel('An error occurred.', 500, 'Failed to delete item')
+        return get_response_model(item_id, 'Item deleted succesfully')
+    return get_error_response_model('An error occurred.', 500, 'Failed to delete item')

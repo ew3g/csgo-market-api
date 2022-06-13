@@ -11,7 +11,8 @@ client = motor.motor_asyncio.AsyncIOMotorClient(url)
 database = client['cs-info']
 item_collection = database.get_collection('item')
 
-#helpers
+
+# helpers
 
 def item_helper(item) -> dict:
     return {
@@ -22,34 +23,39 @@ def item_helper(item) -> dict:
         'game_type': item['game_type'],
     }
 
+
 async def retrieve_items():
     items = []
     async for item in item_collection.find():
         items.append(item_helper(item))
     return items
 
+
 async def add_item(item_data: dict) -> dict:
     item = await item_collection.insert_one(item_data)
     new_item = await item_collection.find_one({'_id': item['inserted_id']})
     return item_helper(new_item)
 
-async def retrieve_item(id: str) -> dict:
-    item = await item_collection.find_one({'_id': ObjectId(id)})
+
+async def retrieve_item(item_id: str) -> dict:
+    item = await item_collection.find_one({'_id': ObjectId(item_id)})
     if item:
         return item_helper(item)
 
-async def update_item(id: str, data: dict):
+
+async def update_item(item_id: str, data: dict):
     if len(data) < 1:
         return False
-    item = await item_collection.find_one({'_id': ObjectId(id)})
+    item = await item_collection.find_one({'_id': ObjectId(item_id)})
     if item:
-        updated_item = await item_collection.update_one({'_id': ObjectId(id), '$set': data})
+        updated_item = await item_collection.update_one({'_id': ObjectId(item_id), '$set': data})
         if updated_item:
             return True
         return False
 
-async def delete_item(id: str):
-    item = await item_collection.find_one({'_id': ObjectId(id)})
+
+async def delete_item(item_id: str):
+    item = await item_collection.find_one({'_id': ObjectId(item_id)})
     if item:
-        await item_collection.delete_one({'_id': ObjectId(id)})
+        await item_collection.delete_one({'_id': ObjectId(item_id)})
         return True
