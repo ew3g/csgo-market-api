@@ -2,10 +2,10 @@ from pydantic import BaseModel, Field
 
 
 class ItemSchema(BaseModel):
-    name: str = Field(...)
-    type: str = Field(...)
-    subtype: str = Field(...)
-    game_type: str = Field(...)
+    name: str = Field()
+    type: str = Field()
+    subtype: str = Field()
+    game_type: str = Field()
 
     class Config:
         schema_extra = {
