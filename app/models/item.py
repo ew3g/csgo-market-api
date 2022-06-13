@@ -21,7 +21,7 @@ class ItemSchema(BaseModel):
 def get_response_model(data, message):
     return {
         "data": [data],
-        "code": 200,
+        "code": 201,
         "message": message
     }
 

@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 import uvicorn
 
-from .dependencies import get_query_token, get_token_header
+from .dependencies import get_token_header
 from .internal import admin
 from .routers import items
 
