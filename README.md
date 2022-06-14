@@ -28,6 +28,7 @@ This project is a REST API to a Steam Market Item model. It was built with [Fast
 [Installation](#installation) • [Usage](#usage)
 </div>
 
+It is recommended to run this API with the [CSGO Market Crawler](https://github.com/ew3g/csgo-market-crawler), as it is responsible for populating the base with Steam Market items
 ## Installation
 - Set up a MongoDB database, I used a free tier [Atlas MongoDB](https://www.mongodb.com/atlas/database).
 - Use package manager [pip](https://pip.pypa.io/en/stable/) to install all needed libs.
