@@ -9,7 +9,7 @@
 
 <div align="center">
 
-# CSGO Market Crawler
+# CSGO Market API
 
 [![GitHub license](https://img.shields.io/github/license/ew3g/csgo-market-api.svg)](https://github.com/ew3g/csgo-market-api/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/ew3g/csgo-market-api.svg)](https://github.com/ew3g/csgo-market-api/graphs/contributors/)
