@@ -213,4 +213,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## Thanking
 CSGO png image for the project icon [csgo-icon](https://www.freeiconspng.com/img/42849). Credits to Ahkâm.
 
-Crawler png image for the project icon [crawler-icon](https://www.flaticon.com/free-icon/web_1792126). Credits to [Pixelmeetup](https://www.flaticon.com/authors/pixelmeetup).
+API png image for the project icon [api-icon](https://www.flaticon.com/free-icon/cloud-computing_4230906). Credits to [Freepik](https://www.flaticon.com/authors/freepik).
