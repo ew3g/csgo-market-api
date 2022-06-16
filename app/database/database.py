@@ -34,7 +34,7 @@ async def retrieve_items():
 
 async def add_item(item_data: dict) -> dict:
     item = await item_collection.insert_one(item_data)
-    new_item = await item_collection.find_one({'_id': item['inserted_id']})
+    new_item = await item_collection.find_one({'_id': item.inserted_id})
     return item_helper(new_item)
 
 
@@ -49,7 +49,7 @@ async def update_item(item_id: str, data: dict):
         return False
     item = await item_collection.find_one({'_id': ObjectId(item_id)})
     if item:
-        updated_item = await item_collection.update_one({'_id': ObjectId(item_id), '$set': data})
+        updated_item = await item_collection.update_one({'_id': ObjectId(item_id)}, {'$set': data})
         if updated_item:
             return True
         return False
