@@ -1,7 +1,12 @@
 from fastapi import APIRouter, Body, Depends
 from fastapi.encoders import jsonable_encoder
 
-from app.models.item import get_error_response_model, ItemSchema, get_response_model
+from app.models.item import (
+    get_response_model,
+    get_response_list_model,
+    get_error_response_model,
+    ItemSchema,
+)
 from ..dependencies import get_token_header
 from ..database.database import (
     add_item,
@@ -27,10 +32,13 @@ async def add_item_data(item: ItemSchema = Body(...)):
 
 
 @router.get('/')
-async def get_items_data():
-    items = await retrieve_items()
+async def get_items_data(page: int = 0, limit: int = 10):
+    print(page)
+    print(limit)
+
+    items, total_items = await retrieve_items(page, limit)
     if items:
-        return get_response_model(items, 'Items data retrieved succesfully')
+        return get_response_list_model(items, page, total_items, 'Items data retrieved succesfully')
     return get_response_model(items, 'Empty list returned')
 
 

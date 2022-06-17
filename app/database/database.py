@@ -25,11 +25,13 @@ def item_helper(item) -> dict:
     }
 
 
-async def retrieve_items():
+async def retrieve_items(page, limit):
     items = []
-    async for item in item_collection.find():
+    count = await item_collection.count_documents({})
+    async for item in item_collection.find().skip(page * limit).limit(limit):
         items.append(item_helper(item))
-    return items
+
+    return items, count
 
 
 async def add_item(item_data: dict) -> dict:
