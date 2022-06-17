@@ -16,5 +16,4 @@ async def root():
     return {'message': 'OK'}
 
 if __name__ == '__main__':
-    # uvicorn app.main:app --reload
-    uvicorn.run('run:app', host="0.0.0.0", reload=True)
+    uvicorn.run('main:app', host="0.0.0.0", reload=True)
