@@ -13,7 +13,7 @@ from ..database.database import (
 
 router = APIRouter(
     prefix='/item',
-    tags=['items'],
+    tags=['item'],
     dependencies=[Depends(get_token_header)],
     responses={404: {'description': 'Not found'}}
 )
