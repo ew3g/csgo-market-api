@@ -12,8 +12,8 @@ from ..database.database import (
 )
 
 router = APIRouter(
-    prefix='/items',
-    tags=['items'],
+    prefix='/item',
+    tags=['item'],
     dependencies=[Depends(get_token_header)],
     responses={404: {'description': 'Not found'}}
 )
