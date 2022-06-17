@@ -57,9 +57,11 @@ Endpoints available are the following:
 ### Get list of all items
 
 #### Request
+Accept as parameters: page(default=0) and limit(default=10)
+
 `GET /item`
 
-    curl --location --request GET 'http://localhost:8000/item/' \
+    curl --location --request GET 'localhost:8000/item?page=0&limit=10' \
     --header 'x-token: my_token'
 
 #### Response

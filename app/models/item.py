@@ -20,9 +20,19 @@ class ItemSchema(BaseModel):
 
 def get_response_model(data, message, code=200):
     return {
-        "data": [data] if isinstance(data, list) else data,
+        "data": data,
         "code": code,
         "message": message
+    }
+
+
+def get_response_list_model(data, page, total_items, message, code=200):
+    return {
+        "data": [data],
+        "code": code,
+        "message": message,
+        "page": page,
+        "total_elements": total_items
     }
 
 
