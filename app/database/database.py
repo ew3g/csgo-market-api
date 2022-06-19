@@ -1,10 +1,8 @@
 from bson.objectid import ObjectId
 
-import dotenv
 import motor.motor_asyncio
 import os
 
-dotenv.load_dotenv()
 
 url = os.getenv('DATABASE_URL')
 client = motor.motor_asyncio.AsyncIOMotorClient(url)

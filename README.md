@@ -39,6 +39,7 @@ It is recommended to run this API with the [CSGO Market Crawler](https://github.
 ```
 DATABASE_URL='mongodb+srv://USER:PASSWORD@HOST/DATABASE?retryWrites=true&w=majority'
 LOG_LEVEL='INFO'
+API_TOKEN='your_token'
 ```  
 
 ## Usage

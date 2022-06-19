@@ -4,10 +4,14 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from starlette.requests import Request
 import uvicorn
+import dotenv
 
 
 from app.internal import admin
 from app.routers import item
+
+
+dotenv.load_dotenv()
 
 limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
