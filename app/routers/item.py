@@ -33,9 +33,6 @@ async def add_item_data(item: ItemSchema = Body(...)):
 
 @router.get('/')
 async def get_items_data(page: int = 0, limit: int = 10):
-    print(page)
-    print(limit)
-
     items, total_items = await retrieve_items(page, limit)
     if items:
         return get_response_list_model(items, page, total_items, 'Items data retrieved succesfully')

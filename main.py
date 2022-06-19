@@ -1,9 +1,12 @@
 from fastapi import FastAPI
 import uvicorn
+import dotenv
 
 from app.internal import admin
 from app.routers import item
 
+
+dotenv.load_dotenv()
 
 app = FastAPI()
 
