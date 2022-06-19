@@ -15,7 +15,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/ew3g/csgo-market-api.svg)](https://github.com/ew3g/csgo-market-api/graphs/contributors/)
 [![GitHub issues](https://img.shields.io/github/issues/ew3g/csgo-market-api.svg)](https://github.com/ew3g/csgo-market-api/issues/)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/ew3g/csgo-market-api.svg)](https://gitHub.com/ew3g/csgo-market-api/pulls/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 
 [![GitHub watchers](https://img.shields.io/github/watchers/ew3g/csgo-market-api.svg?style=social&label=Watch)](https://github.com/ew3g/csgo-market-api/watchers/)
 [![GitHub forks](https://img.shields.io/github/forks/ew3g/csgo-market-api.svg?style=social&label=Fork)](https://gitHub.com/ew3g/csgo-market-api/network/)
