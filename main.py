@@ -22,10 +22,10 @@ app.include_router(admin.router)
 app.include_router(item.router)
 
 
-@app.get('/ping')
+@app.get("/ping")
 @limiter.limit("1/second")
 async def root(request: Request):
-    return {'message': 'OK'}
+    return {"message": "OK"}
 
-if __name__ == '__main__':
-    uvicorn.run('main:app', host="0.0.0.0", reload=True)
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", reload=True)
