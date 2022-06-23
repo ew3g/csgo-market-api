@@ -28,7 +28,7 @@ def get_response_model(data, message, code=200):
 
 def get_response_list_model(data, page, total_items, message, code=200):
     return {
-        "data": [data],
+        "data": data,
         "code": code,
         "message": message,
         "page": page,
