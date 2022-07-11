@@ -42,3 +42,13 @@ def get_error_response_model(error, code, message):
         "code": code,
         "message": message
     }
+
+
+def item_helper(item) -> dict:
+    return {
+        "id": str(item["_id"]),
+        "name": item["name"],
+        "type": item["type"],
+        "subtype": item["subtype"],
+        "game_type": item["game_type"],
+    }
