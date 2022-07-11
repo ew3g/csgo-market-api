@@ -4,14 +4,14 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from starlette.requests import Request
 import uvicorn
-import dotenv
+from dotenv import load_dotenv, find_dotenv
 
 
 from app.internal import admin
 from app.routers import item
 
 
-dotenv.load_dotenv()
+load_dotenv(find_dotenv())
 
 limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
@@ -22,10 +22,10 @@ app.include_router(admin.router)
 app.include_router(item.router)
 
 
-@app.get('/ping')
+@app.get("/ping")
 @limiter.limit("1/second")
 async def root(request: Request):
-    return {'message': 'OK'}
+    return {"message": "OK"}
 
-if __name__ == '__main__':
-    uvicorn.run('main:app', host="0.0.0.0", reload=True)
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", reload=True)

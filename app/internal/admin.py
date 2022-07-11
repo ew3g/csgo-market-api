@@ -7,12 +7,12 @@ from ..dependencies import get_token_header
 
 limiter = Limiter(key_func=get_remote_address)
 router = APIRouter(
-    prefix='/admin',
-    tags=['admin'],
+    prefix="/admin",
+    tags=["admin"],
     dependencies=[Depends(get_token_header)])
 
 
-@router.post('/')
+@router.post("/")
 @limiter.limit("1/second")
 async def update_admin(request: Request):
-    return {'message': 'Admin getting schwifty'}
+    return {"message": "Admin getting schwifty"}

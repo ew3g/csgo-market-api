@@ -28,7 +28,7 @@ def get_response_model(data, message, code=200):
 
 def get_response_list_model(data, page, total_items, message, code=200):
     return {
-        "data": [data],
+        "data": data,
         "code": code,
         "message": message,
         "page": page,
@@ -41,4 +41,14 @@ def get_error_response_model(error, code, message):
         "error": error,
         "code": code,
         "message": message
+    }
+
+
+def item_helper(item) -> dict:
+    return {
+        "id": str(item["_id"]),
+        "name": item["name"],
+        "type": item["type"],
+        "subtype": item["subtype"],
+        "game_type": item["game_type"],
     }

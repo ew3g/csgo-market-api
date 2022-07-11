@@ -1,62 +1,52 @@
 from bson.objectid import ObjectId
+from ..models.item import item_helper
 
 import motor.motor_asyncio
 import os
 
 
-url = os.getenv('DATABASE_URL')
-client = motor.motor_asyncio.AsyncIOMotorClient(url)
+class Database:
 
-database = client['cs-info']
-item_collection = database.get_collection('item')
+    url = None
+    client = None
+    database = None
+    item_collection = None
 
+    def __init__(self):
+        self.url = os.getenv("DATABASE_URL")
+        self.client = motor.motor_asyncio.AsyncIOMotorClient(self.url)
+        self.database = self.client['cs-info']
+        self.item_collection = self.database.get_collection("item")
 
-# helpers
+    async def retrieve_items(self, page, limit):
+        items = []
+        count = await self.item_collection.count_documents({})
+        async for item in self.item_collection.find().skip(page * limit).limit(limit):
+            items.append(item_helper(item))
+        return items, count
 
-def item_helper(item) -> dict:
-    return {
-        'id': str(item['_id']),
-        'name': item['name'],
-        'type': item['type'],
-        'subtype': item['subtype'],
-        'game_type': item['game_type'],
-    }
+    async def add_item(self, item_data: dict) -> dict:
+        item = await self.item_collection.insert_one(item_data)
+        new_item = await self.item_collection.find_one({"_id": item.inserted_id})
+        return item_helper(new_item)
 
+    async def retrieve_item(self, item_id: str) -> dict:
+        item = await self.item_collection.find_one({"_id": ObjectId(item_id)})
+        if item:
+            return item_helper(item)
 
-async def retrieve_items(page, limit):
-    items = []
-    count = await item_collection.count_documents({})
-    async for item in item_collection.find().skip(page * limit).limit(limit):
-        items.append(item_helper(item))
+    async def update_item(self, item_id: str, data: dict):
+        if len(data) < 1:
+            return False
+        item = await self.item_collection.find_one({"_id": ObjectId(item_id)})
+        if item:
+            updated_item = await self.item_collection.update_one({"_id": ObjectId(item_id)}, {"$set": data})
+            if updated_item:
+                return True
+            return False
 
-    return items, count
-
-
-async def add_item(item_data: dict) -> dict:
-    item = await item_collection.insert_one(item_data)
-    new_item = await item_collection.find_one({'_id': item.inserted_id})
-    return item_helper(new_item)
-
-
-async def retrieve_item(item_id: str) -> dict:
-    item = await item_collection.find_one({'_id': ObjectId(item_id)})
-    if item:
-        return item_helper(item)
-
-
-async def update_item(item_id: str, data: dict):
-    if len(data) < 1:
-        return False
-    item = await item_collection.find_one({'_id': ObjectId(item_id)})
-    if item:
-        updated_item = await item_collection.update_one({'_id': ObjectId(item_id)}, {'$set': data})
-        if updated_item:
+    async def delete_item(self, item_id: str):
+        item = await self.item_collection.find_one({"_id": ObjectId(item_id)})
+        if item:
+            await self.item_collection.delete_one({"_id": ObjectId(item_id)})
             return True
-        return False
-
-
-async def delete_item(item_id: str):
-    item = await item_collection.find_one({'_id': ObjectId(item_id)})
-    if item:
-        await item_collection.delete_one({'_id': ObjectId(item_id)})
-        return True
