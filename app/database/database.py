@@ -7,15 +7,10 @@ import os
 
 class Database:
 
-    url = None
-    client = None
-    database = None
-    item_collection = None
-
     def __init__(self):
         self.url = os.getenv("DATABASE_URL")
         self.client = motor.motor_asyncio.AsyncIOMotorClient(self.url)
-        self.database = self.client['cs-info']
+        self.database = self.client["cs-info"]
         self.item_collection = self.database.get_collection("item")
 
     async def retrieve_items(self, page, limit):
